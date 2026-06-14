@@ -132,4 +132,4 @@ notarize = [
 ]
 smartcard = ["yubikey"]
 pkcs11 = ["cryptoki"]
-aws-kms = ["aws-config", "aws-sdk-kms", "app-store-connect?/aws-kms"]
+aws-kms = ["aws-config", "aws-config/credentials-login", "aws-sdk-kms", "app-store-connect?/aws-kms"]

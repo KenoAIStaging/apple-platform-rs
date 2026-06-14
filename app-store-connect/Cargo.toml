@@ -11,7 +11,7 @@ repository = "https://github.com/indygreg/apple-platform-rs.git"
 readme = "README.md"
 
 [features]
-aws-kms = ["aws-config", "aws-sdk-kms", "p256", "sha2", "tokio"]
+aws-kms = ["aws-config", "aws-config/credentials-login", "aws-sdk-kms", "p256", "sha2", "tokio"]
 
 [dependencies]
 anyhow = "1.0.102"
