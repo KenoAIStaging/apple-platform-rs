@@ -13,6 +13,9 @@ Released on ReleaseDate.
 * Interpret empty signature data in Mach-O load command as a missing signature.
   (#183)
 * Handle DER plists encoded as a SET. (#182)
+* `MachOSigner::new()` now returns an error instead of panicking when the
+  input parses as Mach-O but contains no architectures (e.g. a universal
+  static archive whose members are `ar` archives).
 * Notarization network polling now handles some transient network errors. (#174)
 * MSRV 1.81 -> 1.92.
 * `aws-smithy-http` 0.60 -> 0.62.
