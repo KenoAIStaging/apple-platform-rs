@@ -123,7 +123,25 @@ pub fn path_is_signable_macho(path: impl AsRef<Path>) -> Result<bool, AppleCodes
         return Ok(false);
     }
     let data = std::fs::read(path)?;
-    Ok(MachFile::parse(&data).map_or(false, |m| m.into_iter().next().is_some()))
+    let machos = match MachFile::parse(&data) {
+        Ok(m) => m,
+        Err(_) => return Ok(false),
+    };
+
+    // Defer to the actual signing requirement for every slice. This rejects
+    // fat/universal containers with no Mach-O slices (static archives such as
+    // libclang_rt.osx.a) as well as Mach-O files that exist but aren't signable
+    // -- e.g. dSYM DWARF companions and object files whose __LINKEDIT isn't the
+    // final segment. Apple's `codesign` seals all of these as bundle resources
+    // rather than signing them.
+    let mut any = false;
+    for macho in machos.into_iter() {
+        any = true;
+        if macho.check_signing_capability().is_err() {
+            return Ok(false);
+        }
+    }
+    Ok(any)
 }
 
 /// Describes the type of entity at a path.
