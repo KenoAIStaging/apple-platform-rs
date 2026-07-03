@@ -6,6 +6,8 @@
 
 mod api_key;
 mod api_token;
+#[cfg(feature = "aws-kms")]
+pub mod aws_kms;
 pub mod bundle_api;
 pub mod certs_api;
 pub mod cli;
