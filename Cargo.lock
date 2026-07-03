@@ -144,6 +144,7 @@ dependencies = [
  "env_logger",
  "jsonwebtoken",
  "log",
+ "p256 0.13.2",
  "pem",
  "rand 0.8.6",
  "reqwest",
